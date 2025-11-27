@@ -17,13 +17,8 @@ const Quiz = ({ topic, questions, onComplete }) => {
     });
   };
 
-  const handleNext = () => {
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedOption(selectedAnswers[currentQuestion + 1] ?? null);
-    } else {
-      // Quiz completed - calculate score
-      let correctCount = 0;
+  const handleSubmit = () => {
+    let correctCount = 0;
       questions.forEach((question, index) => {
         if (selectedAnswers[index] === question.correctAnswer) {
           correctCount++;
@@ -31,6 +26,14 @@ const Quiz = ({ topic, questions, onComplete }) => {
       });
       const percentage = Math.round((correctCount / questions.length) * 100);
       onComplete(percentage);
+  }
+  const handleNext = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setSelectedOption(selectedAnswers[currentQuestion + 1] ?? null);
+    } else {
+      setCurrentQuestion(currentQuestion);
+      setSelectedOption(selectedAnswers[currentQuestion] ?? null);
     }
   };
 
@@ -45,104 +48,120 @@ const Quiz = ({ topic, questions, onComplete }) => {
 
   return (
     <>
-    <Navbar/>
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-4xl">
-        <div className="bg-linear-to-br from-[#B8D5E8] via-[#D5E8F3] to-[#E8F3F8] p-8 rounded-[2.5rem] shadow-2xl">
-          {/* Quiz Card */}
-          <div className="relative">
-            {currentQuestion === 0 && (
-              <div className="absolute -left-44 bottom-6 hidden lg:block z-10">
-                <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-[#E0EEF7]">
-                  <div className="text-sm text-[#6B7C8F] mb-2 font-medium">Best of Luck !</div>
-                  <div className="flex justify-center">
-                    <Sparkles className="w-12 h-12 text-[#2F6E8E]" strokeWidth={1.5} />
+      <Navbar />
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="w-full max-w-4xl">
+          <div className="bg-linear-to-br from-[#B8D5E8] via-[#D5E8F3] to-[#E8F3F8] p-8 rounded-[2.5rem] shadow-2xl">
+            {/* Quiz Card */}
+            <div className="relative">
+              {currentQuestion === 0 && (
+                <div className="absolute -left-44 bottom-6 hidden lg:block z-10">
+                  <div className="bg-white rounded-2xl p-4 shadow-lg border-2 border-[#E0EEF7]">
+                    <div className="text-sm text-[#6B7C8F] mb-2 font-medium">Best of Luck !</div>
+                    <div className="flex justify-center">
+                      <Sparkles className="w-12 h-12 text-[#2F6E8E]" strokeWidth={1.5} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Main Quiz Card */}
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
-              <div className="text-center mb-8">
-                <h1 className="text-4xl md:text-5xl font-bold text-[#2A6073] mb-3 italic">
-                  Test Your Knowledge
-                </h1>
-                <p className="text-[#6B7C8F]">Answer all questions to see your results</p>
-              </div>
+              {/* Main Quiz Card */}
+              <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+                <div className="text-center mb-8">
+                  <h1 className="text-4xl md:text-5xl font-bold text-[#2A6073] mb-3 italic">
+                    Test Your Knowledge
+                  </h1>
+                  <p className="text-[#6B7C8F]">Answer all questions to see your results</p>
+                </div>
 
-              {/* Progress Bar */}
-              <div className="mb-8">
-                <div className="flex gap-1 mb-2">
-                  {questions.map((_, index) => (
-                    <div
+                {/* Progress Bar */}
+                <div className="mb-8">
+                  <div className="flex gap-1 mb-2">
+                    {questions.map((_, index) => (
+                      <div
+                        key={index}
+                        className={`flex-1 h-2 rounded-full transition-all duration-300 ${index < currentQuestion
+                            ? 'bg-[#2F6E8E]'
+                            : index === currentQuestion
+                              ? 'bg-[#2F6E8E]'
+                              : 'bg-[#C9DDEB]'
+                          }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Question */}
+                <div className="bg-[#D7ECF8] rounded-xl p-4 mb-6">
+                  <p className="text-[#2A6073] font-medium text-center">
+                    {currentQuestion + 1}. {question.question}
+                  </p>
+                </div>
+
+                {/* Options */}
+                <div className="space-y-3 mb-8">
+                  {question.options.map((option, index) => (
+                    <button
                       key={index}
-                      className={`flex-1 h-2 rounded-full transition-all duration-300 ${
-                        index < currentQuestion
-                          ? 'bg-[#2F6E8E]'
-                          : index === currentQuestion
-                          ? 'bg-[#2F6E8E]'
-                          : 'bg-[#C9DDEB]'
-                      }`}
-                    />
+                      onClick={() => handleOptionSelect(index)}
+                      className={`w-full p-4 rounded-xl text-[#2A6073] font-medium 
+                             transition-all duration-200 border-2 text-left
+                             ${selectedOption === index
+                          ? 'bg-[#C4E3F5] border-[#2F6E8E] shadow-md scale-[1.02]'
+                          : 'bg-[#f6f9fa] border-transparent hover:bg-[#C4E3F5] hover:border-[#E0EEF7]'
+                        }`}
+                    >
+                      {option}
+                    </button>
                   ))}
                 </div>
-              </div>
 
-              {/* Question */}
-              <div className="bg-[#D7ECF8] rounded-xl p-4 mb-6">
-                <p className="text-[#2A6073] font-medium text-center">
-                  {currentQuestion + 1}. {question.question}
-                </p>
-              </div>
+                {/* Navigation Buttons */}
+                <div className="flex items-center justify-center relative w-full mt-4">
 
-              {/* Options */}
-              <div className="space-y-3 mb-8">
-                {question.options.map((option, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleOptionSelect(index)}
-                    className={`w-full p-4 rounded-xl text-[#2A6073] font-medium 
-                             transition-all duration-200 border-2 text-left
-                             ${
-                               selectedOption === index
-                                 ? 'bg-[#C4E3F5] border-[#2F6E8E] shadow-md scale-[1.02]'
-                                 : 'bg-[#f6f9fa] border-transparent hover:bg-[#C4E3F5] hover:border-[#E0EEF7]'
-                             }`}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
+                  {/* Center Arrows */}
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={handlePrevious}
+                      disabled={currentQuestion === 0}
+                      className={`w-12 h-12 rounded-full flex items-center justify-center 
+                 transition-all duration-200 ${currentQuestion === 0
+                          ? 'bg-gray-200 cursor-not-allowed opacity-50'
+                          : 'bg-[#E6F2FA] hover:bg-[#C4E3F5] hover:shadow-md'
+                        }`}
+                    >
+                      <ChevronLeft className="w-6 h-6 text-[#4A6C82]" strokeWidth={2} />
+                    </button>
 
-              {/* Navigation Buttons */}
-              <div className="flex justify-center items-center gap-4">
-                <button
-                  onClick={handlePrevious}
-                  disabled={currentQuestion === 0}
-                  className={`w-12 h-12 rounded-full flex items-center justify-center 
-                           transition-all duration-200 
-                           ${
-                             currentQuestion === 0
-                               ? 'bg-gray-200 cursor-not-allowed opacity-50'
-                               : 'bg-[#E6F2FA] hover:bg-[#C4E3F5] hover:shadow-md'
-                           }`}
-                >
-                  <ChevronLeft className="w-6 h-6 text-[#4A6C82]" strokeWidth={2} />
-                </button>
+                    <button
+                      onClick={handleNext}
+                      disabled={currentQuestion === questions.length - 1}
+                      className={`w-12 h-12 rounded-full flex items-center justify-center 
+                 transition-all duration-200 ${currentQuestion === questions.length - 1
+                          ? 'bg-gray-200 cursor-not-allowed opacity-50'
+                          : 'bg-[#E6F2FA] hover:bg-[#C4E3F5] hover:shadow-md'
+                        }`}
+                    >
+                      <ChevronRight className="w-6 h-6 text-[#4A6C82]" strokeWidth={2} />
+                    </button>
+                  </div>
 
-                <button
-                  onClick={handleNext}
-                  className="w-12 h-12 rounded-full flex items-center justify-center 
-                           transition-all duration-200 bg-[#E6F2FA] hover:bg-[#C4E3F5] hover:shadow-md">
-                  <ChevronRight className="w-6 h-6 text-[#4A6C82]" strokeWidth={2} />
-                </button>
+                  {/* Submit button positioned at right */}
+                  {currentQuestion === questions.length - 1 && (
+                    <button
+                      onClick={handleSubmit}
+                      className="font-bold absolute right-0 px-6 h-12 rounded-md flex items-center justify-center 
+                 transition-all duration-200 bg-[#E6F2FA] hover:bg-[#C4E3F5] hover:shadow-md"
+                    >
+                      Submit
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
