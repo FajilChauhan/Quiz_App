@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import { Target, BarChart3, Database, MonitorSmartphone, Zap, TrendingUp, GraduationCap } from 'lucide-react';
 
-const Home = () => {
+const Home = ({ onTopicSelect }) => {
 
   const topics = [
     {
@@ -74,19 +74,19 @@ const Home = () => {
 
         {/* Features Section */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center p-6 hover:border-2 border-[#E0EEF7]">
+          <div className="text-center p-6 hover:border-2 border-white">
             <div className="flex justify-center mb-3">
               <Zap className="w-10 h-10 text-[#2F6E8E]" strokeWidth={1.5} />
             </div>
             <h4 className="text-lg font-bold text-[#2A6073] mb-2">Quick & Easy</h4>
           </div>
-          <div className="text-center p-6 hover:border-2 border-[#E0EEF7]">
+          <div className="text-center p-6 hover:border-2 border-white">
             <div className="flex justify-center mb-3">
               <TrendingUp className="w-10 h-10 text-[#2F6E8E]" strokeWidth={1.5} />
             </div>
             <h4 className="text-lg font-bold text-[#2A6073] mb-2">Track Progress</h4>
           </div>
-          <div className="text-center p-6 hover:border-2 border-[#E0EEF7]">
+          <div className="text-center p-6 hover:border-2 border-white">
             <div className="flex justify-center mb-3">
               <GraduationCap className="w-10 h-10 text-[#2F6E8E]" strokeWidth={1.5} />
             </div>
