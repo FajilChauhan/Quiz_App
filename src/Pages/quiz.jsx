@@ -133,15 +133,8 @@ const Quiz = ({ topic, questions, onComplete }) => {
 
                 <button
                   onClick={handleNext}
-                  disabled={selectedOption === null}
-                  className={`w-12 h-12 rounded-full flex items-center justify-center 
-                           transition-all duration-200 
-                           ${
-                             selectedOption === null
-                               ? 'bg-gray-200 cursor-not-allowed opacity-50'
-                               : 'bg-[#E6F2FA] hover:bg-[#C4E3F5] hover:shadow-md'
-                           }`}
-                >
+                  className="w-12 h-12 rounded-full flex items-center justify-center 
+                           transition-all duration-200 bg-[#E6F2FA] hover:bg-[#C4E3F5] hover:shadow-md">
                   <ChevronRight className="w-6 h-6 text-[#4A6C82]" strokeWidth={2} />
                 </button>
               </div>
