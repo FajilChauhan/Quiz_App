@@ -10,7 +10,7 @@ const Navbar = () => {
               <h1 className="text-2xl font-bold text-[#2A6073]">TeStSkill</h1>
             </div>
             <div className="hidden md:flex items-center text-[17px] font-semibold space-x-8">
-              <a href="#home" className="text-[#6B7C8F] hover:font-bold hover:text-[#2A6073] transition-colors">Home</a>
+              <a href="/" className="text-[#6B7C8F] hover:font-bold hover:text-[#2A6073] transition-colors">Home</a>
               <a href="#topics" className="text-[#6B7C8F] hover:font-bold hover:text-[#2A6073] transition-colors">Topics</a>
               <a href="#about" className="text-[#6B7C8F] hover:font-bold hover:text-[#2A6073] transition-colors">About</a>
             </div>

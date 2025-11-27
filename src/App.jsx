@@ -1,50 +1,71 @@
-import { useState } from 'react';
+import { Routes, Route, useNavigate, useLocation, useParams } from 'react-router-dom';
 import Home from './Pages/Home';
 import Quiz from './Pages/quiz';
 import Result from './Pages/Result';
 import { quizData } from './data/QuizData';
 
-
 function App() {
-  const [currentView, setCurrentView] = useState('Home'); // 'landing', 'quiz', 'result'
-  const [selectedTopic, setSelectedTopic] = useState(null);
-  const [score, setScore] = useState(0);
+  return (
+    <div className="min-h-screen bg-linear-to-br from-[#A8D0E6] to-[#EEF7FF]">
+      <Routes>
+        {/* Home page */}
+        <Route path="/" element={<HomeWithRouting />} />
+
+        {/* Quiz page with topicId in URL */}
+        <Route path="/quiz/:topicId" element={<QuizWithRouting />} />
+
+        {/* Result page */}
+        <Route path="/result" element={<ResultWithRouting />} />
+      </Routes>
+    </div>
+  );
+}
+
+function HomeWithRouting() {
+  const navigate = useNavigate();
 
   const handleTopicSelect = (topicId) => {
-    setSelectedTopic(topicId);
-    setCurrentView('quiz');
+    // navigate to /quiz/topicId
+    navigate(`/quiz/${topicId}`);
   };
+
+  return <Home onTopicSelect={handleTopicSelect} />;
+}
+
+function QuizWithRouting() {
+  const { topicId } = useParams();
+  const navigate = useNavigate();
+
+  const topic = quizData[topicId];
+
+  if (!topic) {
+    return <div className="p-4">Invalid topic. Please go back.</div>;
+  }
 
   const handleQuizComplete = (finalScore) => {
-    setScore(finalScore);
-    setCurrentView('Result');
-  };
-
-  const handleRestart = () => {
-    setCurrentView('Home');
-    setSelectedTopic(null);
-    setScore(0);
+    navigate('/result', { state: { score: finalScore } });
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-[#A8D0E6] to-[#EEF7FF]">
-      {currentView === 'Home' && (
-        <Home onTopicSelect={handleTopicSelect} />
-      )}
-      
-      {currentView === 'quiz' && selectedTopic && (
-        <Quiz
-          topic={quizData[selectedTopic].title}
-          questions={quizData[selectedTopic].questions}
-          onComplete={handleQuizComplete}
-        />
-      )}
-
-      {currentView === 'Result' && (
-        <Result score={score} onRestart={handleRestart} />
-      )}
-    </div>
+    <Quiz
+      topic={topic.title}
+      questions={topic.questions}
+      onComplete={handleQuizComplete}
+    />
   );
+}
+
+function ResultWithRouting() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const score = location.state?.score ?? 0;
+
+  const handleRestart = () => {
+    navigate('/');
+  };
+
+  return <Result score={score} onRestart={handleRestart} />;
 }
 
 export default App;
