@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Home from './Pages/Home';
 import Quiz from './Pages/quiz';
+import Result from './Pages/Result';
 import { quizData } from './data/QuizData';
 
 
@@ -19,6 +20,12 @@ function App() {
     setCurrentView('Result');
   };
 
+  const handleRestart = () => {
+    setCurrentView('Home');
+    setSelectedTopic(null);
+    setScore(0);
+  };
+
   return (
     <div className="min-h-screen bg-linear-to-br from-[#A8D0E6] to-[#EEF7FF]">
       {currentView === 'Home' && (
@@ -31,6 +38,10 @@ function App() {
           questions={quizData[selectedTopic].questions}
           onComplete={handleQuizComplete}
         />
+      )}
+
+      {currentView === 'Result' && (
+        <Result score={score} onRestart={handleRestart} />
       )}
     </div>
   );

@@ -32,24 +32,6 @@ export const quizData = {
         question: "Which keyword is used to inherit a class in Java?",
         options: ["implements", "extends", "inherits"],
         correctAnswer: 1
-      },
-      {
-        id: 6,
-        question: "What is abstraction in OOP?",
-        options: ["Hiding implementation details", "Showing all details", "Deleting code"],
-        correctAnswer: 0
-      },
-      {
-        id: 7,
-        question: "What is a constructor?",
-        options: ["A special method to initialize objects", "A destructor", "A variable"],
-        correctAnswer: 0
-      },
-      {
-        id: 8,
-        question: "Can a class inherit from multiple classes in Java?",
-        options: ["Yes", "No", "Sometimes"],
-        correctAnswer: 1
       }
     ]
   },
@@ -85,24 +67,6 @@ export const quizData = {
         id: 5,
         question: "What is a linked list?",
         options: ["Array of elements", "Linear data structure with nodes", "Tree structure"],
-        correctAnswer: 1
-      },
-      {
-        id: 6,
-        question: "What is the space complexity of merge sort?",
-        options: ["O(1)", "O(n)", "O(log n)"],
-        correctAnswer: 1
-      },
-      {
-        id: 7,
-        question: "Which traversal method uses a stack?",
-        options: ["BFS", "DFS", "Level Order"],
-        correctAnswer: 1
-      },
-      {
-        id: 8,
-        question: "What is a hash table?",
-        options: ["Sorted array", "Key-value data structure", "Binary tree"],
         correctAnswer: 1
       }
     ]
@@ -140,24 +104,6 @@ export const quizData = {
         question: "What is normalization?",
         options: ["Organizing data to reduce redundancy", "Adding more tables", "Deleting data"],
         correctAnswer: 0
-      },
-      {
-        id: 6,
-        question: "Which JOIN returns all records from both tables?",
-        options: ["INNER JOIN", "FULL OUTER JOIN", "LEFT JOIN"],
-        correctAnswer: 1
-      },
-      {
-        id: 7,
-        question: "What is an index?",
-        options: ["A key constraint", "A data structure to speed up queries", "A table column"],
-        correctAnswer: 1
-      },
-      {
-        id: 8,
-        question: "What is a transaction?",
-        options: ["Single operation", "Group of operations treated as one unit", "Database backup"],
-        correctAnswer: 1
       }
     ]
   },
@@ -194,24 +140,6 @@ export const quizData = {
         question: "Which scheduling algorithm is preemptive?",
         options: ["FCFS", "Round Robin", "SJF non-preemptive"],
         correctAnswer: 1
-      },
-      {
-        id: 6,
-        question: "What is thrashing?",
-        options: ["High CPU usage", "Excessive paging activity", "Process termination"],
-        correctAnswer: 1
-      },
-      {
-        id: 7,
-        question: "What is a semaphore?",
-        options: ["Process state", "Synchronization tool", "Memory allocation"],
-        correctAnswer: 1
-      },
-      {
-        id: 8,
-        question: "What is the kernel?",
-        options: ["Core of the OS", "User interface", "Application layer"],
-        correctAnswer: 0
       }
     ]
   }
